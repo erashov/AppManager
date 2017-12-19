@@ -1,8 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-//const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
-const { AngularCompilerPlugin } = require('@ngtools/webpack')
+const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 
 module.exports = (env) => {
