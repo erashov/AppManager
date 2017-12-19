@@ -4,7 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const merge = require('webpack-merge');
 const treeShakableModules = [
     '@angular/animations',
-    '@angular/common',
+    //'@angular/common',
     '@angular/compiler',
     '@angular/core',
     '@angular/forms',
@@ -15,12 +15,16 @@ const treeShakableModules = [
     'zone.js',
 ];
 const nonTreeShakableModules = [
-    'bootstrap',
-    'bootstrap/dist/css/bootstrap.css',
-    'es6-promise',
-    'es6-shim',
-    'event-source-polyfill',
-    'jquery',
+    //'bootstrap',
+    //'bootstrap/dist/css/bootstrap.css',
+    //'es6-promise',
+    //'es6-shim',
+    //'event-source-polyfill',
+    //'jquery',
+    '@angular/material',
+    '@angular/material/prebuilt-themes/indigo-pink.css',
+    '@angular/cdk',
+    'hammerjs'
 ];
 const allModules = treeShakableModules.concat(nonTreeShakableModules);
 
@@ -41,9 +45,10 @@ module.exports = (env) => {
             library: '[name]_[hash]'
         },
         plugins: [
-            new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }), // Maps these identifiers to the jQuery package (because Bootstrap expects it to be a global variable)
+          //  new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }), // Maps these identifiers to the jQuery package (because Bootstrap expects it to be a global variable)
             new webpack.ContextReplacementPlugin(/\@angular\b.*\b(bundles|linker)/, path.join(__dirname, './ClientApp')), // Workaround for https://github.com/angular/angular/issues/11580
             new webpack.ContextReplacementPlugin(/angular(\\|\/)core(\\|\/)@angular/, path.join(__dirname, './ClientApp')), // Workaround for https://github.com/angular/angular/issues/14898
+            new webpack.ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/, path.join(__dirname, './ClientApp')),
             new webpack.IgnorePlugin(/^vertx$/) // Workaround for https://github.com/stefanpenner/es6-promise/issues/100
         ]
     };
